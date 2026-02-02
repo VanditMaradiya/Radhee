@@ -419,42 +419,53 @@
             questionEl.innerText = questions[index];
             questionEl.style.opacity = 1;
             questionEl.style.animation = "questionFade 0.6s forwards";
-            
-            // After new question loads, check if mouse is still over NO button
-            setTimeout(() => {
-                if (mouseOverNo) {
-                    noToYes();
-                }
-            }, 100);
         }, 200);
 
         // Remove old event listeners
-        noBtn.removeEventListener("mouseenter", noToYes);
-        noBtn.removeEventListener("mouseleave", resetNo);
+        noBtn.removeEventListener("mouseenter", handleNoEnter);
+        noBtn.removeEventListener("mouseleave", handleNoLeave);
         
-        // Reset NO button
-        resetNo();
+        // Reset NO button text and style
+        noBtn.innerText = "NO";
+        noBtn.classList.remove('transform-yes');
+        noTransformed = false;
+        // Don't reset mouseOverNo - we need to track if mouse is still there!
 
         // Add fresh event listeners for NO button
-        noBtn.addEventListener("mouseenter", noToYes);
-        noBtn.addEventListener("mouseleave", resetNo);
+        noBtn.addEventListener("mouseenter", handleNoEnter);
+        noBtn.addEventListener("mouseleave", handleNoLeave);
+        
+        // Check if mouse is still over NO button after question loads
+        setTimeout(() => {
+            if (mouseOverNo) {
+                noToYes();
+            }
+        }, 100);
     }
 
     let noTransformed = false;
     let mouseOverNo = false;
 
+    function handleNoEnter() {
+        mouseOverNo = true;
+        noToYes();
+    }
+    
+    function handleNoLeave() {
+        mouseOverNo = false;
+        resetNo();
+    }
+
     function noToYes() {
         noBtn.innerText = "YES";
         noBtn.classList.add('transform-yes');
         noTransformed = true;
-        mouseOverNo = true;
     }
 
     function resetNo() {
         noBtn.innerText = "NO";
         noBtn.classList.remove('transform-yes');
         noTransformed = false;
-        mouseOverNo = false;
     }
     
     // Track mouse position globally
