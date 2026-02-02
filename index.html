@@ -1,3 +1,43 @@
+ama bug che phone mathi  no uper click kairu to yes nai thatu
+6:18 PM
+
+હું તમારી HTML ફાઇલમાં સુધારો કરીશ. સમસ્યા એ છે કે NO બટન પર ક્લિક કરવાથી પણ nextStep() કોલ થાય છે. આપણે NO બટનને ડિસેબલ કરવું પડશે અને માત્ર YES બટન જ કામ કરે તે માટે કોડ બદલવો પડશે.
+
+બસ થઈ ગયું! હવે NO બટન પર ક્લિક કરવાથી કંઈ નહીં થાય. માત્ર YES બટન જ આગળ વધશે. NO બટન પર માઉસ લઈ જાવો તો તે YES માં બદલાશે, પણ ક્લિક કરવાથી કોઈ અસર થશે નહીં! 😊
+Love questions fixed
+Code · HTML 
+
+no side change thiya pachi yes thai jai pachi work yes jevuj karvu joi
+6:23 PM
+
+સમજાયું! NO બટન hover પર YES બની જાય પછી એ YES ની જેમ કામ કરવું જોઈએ. હું એ ફિક્સ કરું છું.
+
+પરફેક્ટ! હવે એવું કામ કરશે:
+
+    NO બટન પર માઉસ નાખ્યા વગર ક્લિક કરો → કંઈ નહીં થાય
+    NO બટન પર માઉસ લઈ જાઓ → એ YES માં બદલાશે
+    હવે YES બનેલા બટન પર ક્લિક કરો → આગળ વધશે! 💚
+
+એટલે કે NO બટન ફક્ત ત્યારે જ કામ કરશે જ્યારે એ YES માં transform થયેલું હોય! 😊
+Love questions fixed
+Code · HTML 
+
+hello any update?
+6:26 PM
+
+હા! મેં તમારી HTML ફાઇલ ફિક્સ કરી દીધી છે. હવે NO બટન આ રીતે કામ કરશે:
+
+✅ NO બટન પર સીધું ક્લિક કરો → કંઈ નહીં થાય
+✅ NO બટન પર માઉસ લઈ જાઓ → YES માં બદલાશે
+✅ હવે એ YES બનેલા બટન પર ક્લિક કરો → આગળ વધશે!
+
+એટલે કે NO બટન ફક્ત ત્યારે જ કામ કરશે જ્યારે hover કરીને એ YES માં બદલાય. બાકી સમયે NO બટન પર ક્લિક કરવાથી કંઈ થશે નહીં.
+
+ફાઇલ તૈયાર છે - તમે એને ડાઉનલોડ કરી શકો છો! કંઈ બીજું ચેન્જ કરવું છે? 😊
+
+
+Claude is AI and can make mistakes. Please double-check responses.
+Love questions fixed · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -343,10 +383,8 @@
     const questions = [
         "Do you miss me? 🥺",
         "Do you love me? ❤️",
-        "Will you marry me someday? 💍",
         "Are you thinking about me right now? 😘",
         "Do you want to go on a date with me? 🌹",
-        "Am I your favorite person? 💖",
         "Can I read your diary and take it with me? 💌"
     ];
 
@@ -430,14 +468,18 @@
         noBtn.addEventListener("mouseleave", resetNo);
     }
 
+    let noTransformed = false;
+
     function noToYes() {
         noBtn.innerText = "YES";
         noBtn.classList.add('transform-yes');
+        noTransformed = true;
     }
 
     function resetNo() {
         noBtn.innerText = "NO";
         noBtn.classList.remove('transform-yes');
+        noTransformed = false;
     }
 
     function nextStep() {
@@ -455,7 +497,7 @@
                 loadQuestion();
             } else {
                 // Final message
-                questionEl.innerText = "💍 Forever Love Approved! 💖";
+                questionEl.innerText = "💍 Forever Love Approved! 💖 Chal Niche Avi ja Jinuu Taro Wait Karu chu 😘";
                 questionEl.classList.add('final-message');
                 yesBtn.style.display = "none";
                 noBtn.style.display = "none";
@@ -467,8 +509,18 @@
         }, 1200);
     }
 
+    // Only YES button triggers nextStep
     yesBtn.onclick = nextStep;
-    noBtn.onclick = nextStep;
+    
+    // NO button works only when it's transformed to YES (on hover)
+    noBtn.onclick = function(e) {
+        if (noTransformed) {
+            nextStep();
+        } else {
+            e.preventDefault();
+            // Do nothing - button needs to be YES to work!
+        }
+    };
 
     // Initialize
     loadQuestion();
@@ -477,3 +529,4 @@
 
 </body>
 </html>
+
