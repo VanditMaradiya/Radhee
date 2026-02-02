@@ -419,27 +419,49 @@
             questionEl.innerText = questions[index];
             questionEl.style.opacity = 1;
             questionEl.style.animation = "questionFade 0.6s forwards";
+            
+            // After new question loads, check if mouse is still over NO button
+            setTimeout(() => {
+                if (mouseOverNo) {
+                    noToYes();
+                }
+            }, 100);
         }, 200);
 
+        // Remove old event listeners
+        noBtn.removeEventListener("mouseenter", noToYes);
+        noBtn.removeEventListener("mouseleave", resetNo);
+        
+        // Reset NO button
         resetNo();
 
-        // Always add the hover effect for NO button
+        // Add fresh event listeners for NO button
         noBtn.addEventListener("mouseenter", noToYes);
         noBtn.addEventListener("mouseleave", resetNo);
     }
 
     let noTransformed = false;
+    let mouseOverNo = false;
 
     function noToYes() {
         noBtn.innerText = "YES";
         noBtn.classList.add('transform-yes');
         noTransformed = true;
+        mouseOverNo = true;
     }
 
     function resetNo() {
         noBtn.innerText = "NO";
         noBtn.classList.remove('transform-yes');
         noTransformed = false;
+        mouseOverNo = false;
+    }
+    
+    // Track mouse position globally
+    function checkMouseOverButton() {
+        if (mouseOverNo) {
+            noToYes();
+        }
     }
 
     function nextStep() {
