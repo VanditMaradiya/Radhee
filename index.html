@@ -3,524 +3,483 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Love Questions - Enhanced</title>
+<title>Something Special ❤️</title>
+
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+* { 
+    box-sizing: border-box; 
+    margin: 0;
+    padding: 0;
+}
 
-    body {
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-        background-size: 400% 400%;
-        animation: gradientShift 15s ease infinite;
-        font-family: 'Poppins', sans-serif;
-        overflow: hidden;
-        position: relative;
-    }
+body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    overflow-x: hidden;
+    padding: 20px;
+}
 
-    @keyframes gradientShift {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 
-    /* Floating hearts background */
-    .hearts-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        overflow: hidden;
-        z-index: 1;
-    }
+/* Floating Hearts Background */
+.hearts-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
 
-    .heart {
-        position: absolute;
-        font-size: 20px;
+.heart-float {
+    position: absolute;
+    font-size: 20px;
+    animation: float-up 8s infinite;
+    opacity: 0;
+}
+
+@keyframes float-up {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
         opacity: 0;
-        animation: floatHeart 8s linear infinite;
     }
-
-    @keyframes floatHeart {
-        0% {
-            transform: translateY(100vh) rotate(0deg);
-            opacity: 0;
-        }
-        10% {
-            opacity: 0.8;
-        }
-        90% {
-            opacity: 0.8;
-        }
-        100% {
-            transform: translateY(-100px) rotate(360deg);
-            opacity: 0;
-        }
+    10% {
+        opacity: 0.6;
     }
-
-    .box {
-        width: 520px;
-        max-width: 90%;
-        background: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(20px);
-        border-radius: 30px;
-        padding: 50px 40px;
-        text-align: center;
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3),
-                    inset 0 0 40px rgba(255, 255, 255, 0.1);
-        position: relative;
-        overflow: hidden;
-        animation: boxFadeIn 1s ease;
-        z-index: 10;
-        border: 2px solid rgba(255, 255, 255, 0.3);
+    90% {
+        opacity: 0.3;
     }
-
-    @keyframes boxFadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(30px) scale(0.9);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
     }
+}
 
-    /* Sparkle effect on box */
-    .box::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: linear-gradient(
-            45deg,
-            transparent,
-            rgba(255, 255, 255, 0.1),
-            transparent
-        );
-        transform: rotate(45deg);
-        animation: sparkle 3s linear infinite;
+.container {
+    background: rgba(255, 255, 255, 0.98);
+    max-width: 500px;
+    width: 100%;
+    padding: 50px 40px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+}
+
+.question-box {
+    display: none;
+    animation: slideIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.question-box.active {
+    display: block;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
     }
-
-    @keyframes sparkle {
-        0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-        100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
+}
 
+.emoji-icon {
+    font-size: 60px;
+    margin-bottom: 20px;
+    display: inline-block;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-15px);
+    }
+    60% {
+        transform: translateY(-7px);
+    }
+}
+
+h2 {
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+button {
+    padding: 16px 32px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: relative;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+button:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+}
+
+button:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+button.option-yes {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+}
+
+button.option-yes:hover {
+    box-shadow: 0 15px 40px rgba(245, 87, 108, 0.6);
+}
+
+button.option-no {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    box-shadow: 0 10px 30px rgba(79, 172, 254, 0.4);
+}
+
+button.option-no:hover {
+    box-shadow: 0 15px 40px rgba(79, 172, 254, 0.6);
+}
+
+button.next-btn {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    box-shadow: 0 10px 30px rgba(250, 112, 154, 0.4);
+}
+
+button.next-btn:hover {
+    box-shadow: 0 15px 40px rgba(250, 112, 154, 0.6);
+}
+
+.video-container {
+    margin-top: 25px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    animation: videoReveal 0.8s ease;
+}
+
+@keyframes videoReveal {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+video {
+    width: 100%;
+    display: block;
+    border-radius: 20px;
+}
+
+audio { 
+    display: none; 
+}
+
+/* Progress Indicator */
+.progress-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ddd;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    width: 30px;
+    border-radius: 5px;
+}
+
+/* Message Box Styling */
+.message-box {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(252, 182, 159, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 40px 25px;
+    }
+    
     h2 {
-        font-family: 'Pacifico', cursive;
-        color: #fff;
-        font-size: 32px;
-        margin-bottom: 35px;
-        opacity: 0;
-        transform: translateY(20px);
-        animation: questionFade 0.6s forwards;
-        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        position: relative;
-        z-index: 2;
+        font-size: 20px;
     }
-
-    @keyframes questionFade {
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    
+    .emoji-icon {
+        font-size: 50px;
     }
-
-    .love {
-        color: #fff;
-        font-size: 28px;
-        font-weight: 600;
-        margin-bottom: 25px;
-        display: none;
-        animation: lovePopIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-        text-shadow: 0 0 20px rgba(255, 0, 128, 0.8),
-                     0 0 40px rgba(255, 0, 128, 0.5);
-        position: relative;
-        z-index: 2;
-    }
-
-    @keyframes lovePopIn {
-        0% {
-            transform: scale(0.3) rotate(-10deg);
-            opacity: 0;
-        }
-        50% {
-            transform: scale(1.3) rotate(5deg);
-        }
-        100% {
-            transform: scale(1) rotate(0deg);
-            opacity: 1;
-        }
-    }
-
-    .buttons-container {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        flex-wrap: wrap;
-        position: relative;
-        z-index: 2;
-    }
-
+    
     button {
-        padding: 16px 40px;
-        font-size: 18px;
-        font-weight: 600;
-        border: none;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        padding: 14px 28px;
+        font-size: 15px;
     }
+}
 
-    button::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.3);
-        transform: translate(-50%, -50%);
-        transition: width 0.6s, height 0.6s;
-    }
+/* Sparkle effect */
+@keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0); }
+    50% { opacity: 1; transform: scale(1); }
+}
 
-    button:hover::before {
-        width: 300px;
-        height: 300px;
-    }
-
-    button:hover {
-        transform: scale(1.15) translateY(-5px);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-    }
-
-    button:active {
-        transform: scale(0.95) translateY(0);
-    }
-
-    #yesBtn {
-        background: linear-gradient(135deg, #00f260, #0575e6);
-        color: white;
-        position: relative;
-        z-index: 1;
-    }
-
-    #noBtn {
-        background: linear-gradient(135deg, #ff416c, #ff4b2b);
-        color: white;
-        position: relative;
-        z-index: 1;
-        transition: all 0.3s ease;
-    }
-
-    #noBtn.transform-yes {
-        background: linear-gradient(135deg, #2ecc71, #27ae60);
-        animation: shake 0.5s;
-    }
-
-    @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        25% { transform: translateX(-10px) rotate(-5deg); }
-        75% { transform: translateX(10px) rotate(5deg); }
-    }
-
-    /* Confetti effect */
-    .confetti {
-        position: fixed;
-        width: 10px;
-        height: 10px;
-        background: #f0f;
-        position: absolute;
-        animation: confettiFall 3s linear forwards;
-        z-index: 100;
-    }
-
-    @keyframes confettiFall {
-        to {
-            transform: translateY(100vh) rotate(720deg);
-            opacity: 0;
-        }
-    }
-
-    /* Final message styling */
-    .final-message {
-        animation: finalPulse 2s ease-in-out infinite;
-    }
-
-    @keyframes finalPulse {
-        0%, 100% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(1.05);
-        }
-    }
-
-    /* Pulse ring effect */
-    .pulse-ring {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 100px;
-        height: 100px;
-        border: 3px solid rgba(255, 255, 255, 0.5);
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-        animation: pulseRing 2s ease-out infinite;
-        pointer-events: none;
-    }
-
-    @keyframes pulseRing {
-        0% {
-            width: 100px;
-            height: 100px;
-            opacity: 1;
-        }
-        100% {
-            width: 300px;
-            height: 300px;
-            opacity: 0;
-        }
-    }
-
-    /* Responsive */
-    @media (max-width: 600px) {
-        .box {
-            padding: 40px 30px;
-        }
-        
-        h2 {
-            font-size: 26px;
-        }
-        
-        .love {
-            font-size: 24px;
-        }
-        
-        button {
-            padding: 14px 32px;
-            font-size: 16px;
-        }
-    }
+.sparkle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: white;
+    border-radius: 50%;
+    animation: sparkle 1.5s infinite;
+}
 </style>
 </head>
+
 <body>
 
-<!-- Floating hearts background -->
-<div class="hearts-container" id="heartsContainer"></div>
+<!-- Floating Hearts Background -->
+<div class="hearts-bg" id="heartsContainer"></div>
 
-<div class="box" id="mainBox">
-    <div id="loveText" class="love">💖 I Love You Too! 💖</div>
-    <h2 id="question"></h2>
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+    <source src="bg-music.mp3" type="audio/mpeg">
+</audio>
 
-    <div class="buttons-container">
-        <button id="yesBtn">YES</button>
-        <button id="noBtn">NO</button>
+<div class="container">
+    <!-- Progress Dots -->
+    <div class="progress-dots">
+        <div class="dot active" id="dot1"></div>
+        <div class="dot" id="dot2"></div>
+        <div class="dot" id="dot3"></div>
+        <div class="dot" id="dot4"></div>
     </div>
+
+    <!-- Question 1 -->
+    <div id="q1" class="question-box active">
+        <div class="emoji-icon">💭</div>
+        <h2>How are you feeling right now?</h2>
+        <div class="button-group">
+            <button class="option-yes" onclick="startExperience()">Excited 😍</button>
+            <button class="option-no" onclick="startExperience()">Nervous 😅</button>
+        </div>
+    </div>
+
+    <!-- Question 2 -->
+    <div id="q2" class="question-box">
+        <div class="emoji-icon">😌</div>
+        <div class="message-box">
+            <h2>Aje nai aivo…<br>don't worry</h2>
+        </div>
+        <div class="button-group">
+            <button class="next-btn" onclick="showQ3()">Jinuu... ➜</button>
+        </div>
+    </div>
+
+    <!-- Question 3 -->
+    <div id="q3" class="question-box">
+        <div class="emoji-icon">🤍</div>
+        <h2>
+            Aje betho to vichairu…<br>
+            jo koi mane na pade ke tu jinuu ne nai lai jai sake To....<br>
+            hu su karu?
+        </h2>
+        <div class="button-group">
+            <button class="option-no" onclick="showNo()">kavvv... 😬</button>
+        </div>
+    </div>
+
+    <!-- YES Response -->
+    <div id="yes" class="question-box">
+        <div class="emoji-icon">😜</div>
+        <div class="message-box">
+            <h2>Chal chod…<br>nahi bataunga</h2>
+        </div>
+    </div>
+
+    <!-- NO Response -->
+    <div id="no" class="question-box">
+        <div class="emoji-icon">✨</div>
+        <div class="message-box">
+            <h2>mara sweet Papaji + Menadapara family ne kai deje</h2>
+        </div>
+        <div class="button-group">
+            <button class="next-btn" onclick="showVideo()">kee… 🎥</button>
+        </div>
+    </div>
+
+    <!-- Video Section -->
+    <div id="videoSection" class="question-box">
+        <div class="emoji-icon">❤️</div>
+        <h2>Just for you</h2>
+        <div class="video-container">
+            <video id="finalVideo" controls>
+                <source src="https://raw.githubusercontent.com/vanditmaradiya/Radhee/main/VN20260209_185723.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
 </div>
 
 <script>
-    const questions = [
-        "Do you miss me? 🥺",
-        "Do you love me? ❤️",
-        "Are you thinking about me right now? 😘",
-        "Can I read your diary and take it with me? 💌",
-        "Do you want to go on a date with me? 🌹"
-    ];
+const music = document.getElementById("bgMusic");
+music.volume = 0;
 
-    let index = 0;
-
-    const questionEl = document.getElementById("question");
-    const yesBtn = document.getElementById("yesBtn");
-    const noBtn = document.getElementById("noBtn");
-    const loveText = document.getElementById("loveText");
-    const mainBox = document.getElementById("mainBox");
-
-    // Create floating hearts
-    function createFloatingHearts() {
-        const heartsContainer = document.getElementById("heartsContainer");
-        const heartSymbols = ['❤️', '💕', '💖', '💗', '💓', '💝'];
-        
-        setInterval(() => {
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
-            heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
-            heart.style.animationDelay = Math.random() * 2 + 's';
-            
-            heartsContainer.appendChild(heart);
-            
-            setTimeout(() => {
-                heart.remove();
-            }, 10000);
-        }, 800);
-    }
-
-    // Create confetti effect
-    function createConfetti() {
-        const colors = ['#ff0080', '#ff8c00', '#ffd700', '#00ff00', '#00bfff', '#ff00ff'];
-        
-        for (let i = 0; i < 50; i++) {
-            setTimeout(() => {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + '%';
-                confetti.style.top = '-10px';
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.animationDelay = Math.random() * 0.5 + 's';
-                
-                document.body.appendChild(confetti);
-                
-                setTimeout(() => {
-                    confetti.remove();
-                }, 3000);
-            }, i * 30);
-        }
-    }
-
-    // Create pulse rings
-    function createPulseRing() {
-        const ring = document.createElement('div');
-        ring.className = 'pulse-ring';
-        mainBox.appendChild(ring);
-        
-        setTimeout(() => {
-            ring.remove();
-        }, 2000);
-    }
-
-    function loadQuestion() {
-        questionEl.style.opacity = 0;
-        loveText.style.display = "none";
-
-        setTimeout(() => {
-            questionEl.innerText = questions[index];
-            questionEl.style.opacity = 1;
-            questionEl.style.animation = "questionFade 0.6s forwards";
-        }, 200);
-
-        // Remove old event listeners
-        noBtn.removeEventListener("mouseenter", handleNoEnter);
-        noBtn.removeEventListener("mouseleave", handleNoLeave);
-        
-        // Reset NO button text and style
-        noBtn.innerText = "NO";
-        noBtn.classList.remove('transform-yes');
-        noTransformed = false;
-        // Don't reset mouseOverNo - we need to track if mouse is still there!
-
-        // Add fresh event listeners for NO button
-        noBtn.addEventListener("mouseenter", handleNoEnter);
-        noBtn.addEventListener("mouseleave", handleNoLeave);
-        
-        // Check if mouse is still over NO button after question loads
-        setTimeout(() => {
-            if (mouseOverNo) {
-                noToYes();
-            }
-        }, 100);
-    }
-
-    let noTransformed = false;
-    let mouseOverNo = false;
-
-    function handleNoEnter() {
-        mouseOverNo = true;
-        noToYes();
-    }
+// Create floating hearts
+function createFloatingHearts() {
+    const container = document.getElementById('heartsContainer');
+    const hearts = ['❤️', '💕', '💖', '💗', '💓'];
     
-    function handleNoLeave() {
-        mouseOverNo = false;
-        resetNo();
-    }
-
-    function noToYes() {
-        noBtn.innerText = "YES";
-        noBtn.classList.add('transform-yes');
-        noTransformed = true;
-    }
-
-    function resetNo() {
-        noBtn.innerText = "NO";
-        noBtn.classList.remove('transform-yes');
-        noTransformed = false;
-    }
-    
-    // Track mouse position globally
-    function checkMouseOverButton() {
-        if (mouseOverNo) {
-            noToYes();
-        }
-    }
-
-    function nextStep() {
-        // Show love text with animation
-        loveText.style.display = "block";
-        loveText.style.animation = "lovePopIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards";
+    setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'heart-float';
+        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+        heart.style.animationDelay = Math.random() * 2 + 's';
+        container.appendChild(heart);
         
-        // Create effects
-        createPulseRing();
-        createConfetti();
+        setTimeout(() => heart.remove(), 8000);
+    }, 800);
+}
 
-        setTimeout(() => {
-            index++;
-            if (index < questions.length) {
-                loadQuestion();
-            } else {
-                // Final message
-                questionEl.innerText = "💍 Forever Love Approved! 💖 Bassss krrrrr ab kitni bar dekhe giii 😜";
-                questionEl.classList.add('final-message');
-                yesBtn.style.display = "none";
-                noBtn.style.display = "none";
-                
-                // Extra confetti for final message
-                setTimeout(createConfetti, 500);
-                setTimeout(createConfetti, 1000);
-            }
-        }, 1200);
-    }
+createFloatingHearts();
 
-    // Only YES button triggers nextStep
-    yesBtn.onclick = nextStep;
-    
-    // NO button works only when it's transformed to YES (on hover)
-    noBtn.onclick = function(e) {
-        if (noTransformed) {
-            nextStep();
+// Smooth music fade-in
+function playMusic() {
+    music.play().catch(e => console.log('Audio autoplay prevented'));
+    let vol = 0;
+    let fade = setInterval(() => {
+        if (vol < 0.4) {
+            vol += 0.02;
+            music.volume = vol;
         } else {
-            e.preventDefault();
-            // Do nothing - button needs to be YES to work!
+            clearInterval(fade);
         }
-    };
+    }, 200);
+}
 
-    // Initialize
-    loadQuestion();
-    createFloatingHearts();
+function hideAll() {
+    document.querySelectorAll('.question-box').forEach(box => {
+        box.classList.remove('active');
+    });
+}
+
+function updateProgress(step) {
+    for (let i = 1; i <= 4; i++) {
+        const dot = document.getElementById(`dot${i}`);
+        if (i <= step) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    }
+}
+
+function startExperience() {
+    playMusic();
+    hideAll();
+    updateProgress(2);
+    document.getElementById("q2").classList.add('active');
+}
+
+function showQ3() {
+    hideAll();
+    updateProgress(3);
+    document.getElementById("q3").classList.add('active');
+}
+
+function showYes() {
+    hideAll();
+    updateProgress(4);
+    document.getElementById("yes").classList.add('active');
+}
+
+function showNo() {
+    hideAll();
+    updateProgress(4);
+    document.getElementById("no").classList.add('active');
+}
+
+function showVideo() {
+    hideAll();
+    updateProgress(4);
+    document.getElementById("videoSection").classList.add('active');
+    
+    // Stop background music
+    music.pause();
+    
+    // Play video
+    const video = document.getElementById("finalVideo");
+    video.play().catch(e => console.log('Video autoplay prevented'));
+}
 </script>
 
 </body>
 </html>
-
-
