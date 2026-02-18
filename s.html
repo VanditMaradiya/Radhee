@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Something Special ❤️</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* { 
+    box-sizing: border-box; 
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    overflow-x: hidden;
+    padding: 20px;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Floating Hearts Background */
+.hearts-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.heart-float {
+    position: absolute;
+    font-size: 20px;
+    animation: float-up 8s infinite;
+    opacity: 0;
+}
+
+@keyframes float-up {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.3;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.98);
+    max-width: 500px;
+    width: 100%;
+    padding: 50px 40px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+}
+
+.question-box {
+    display: none;
+    animation: slideIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.question-box.active {
+    display: block;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.emoji-icon {
+    font-size: 60px;
+    margin-bottom: 20px;
+    display: inline-block;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-15px);
+    }
+    60% {
+        transform: translateY(-7px);
+    }
+}
+
+h2 {
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+button {
+    padding: 16px 32px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: relative;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+button:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+}
+
+button:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+button.option-yes {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+}
+
+button.option-yes:hover {
+    box-shadow: 0 15px 40px rgba(245, 87, 108, 0.6);
+}
+
+button.option-no {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    box-shadow: 0 10px 30px rgba(79, 172, 254, 0.4);
+}
+
+button.option-no:hover {
+    box-shadow: 0 15px 40px rgba(79, 172, 254, 0.6);
+}
+
+button.next-btn {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    box-shadow: 0 10px 30px rgba(250, 112, 154, 0.4);
+}
+
+button.next-btn:hover {
+    box-shadow: 0 15px 40px rgba(250, 112, 154, 0.6);
+}
+
+.video-container {
+    margin-top: 25px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    animation: videoReveal 0.8s ease;
+}
+
+@keyframes videoReveal {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+video {
+    width: 100%;
+    display: block;
+    border-radius: 20px;
+}
+
+audio { 
+    display: none; 
+}
+
+/* Progress Indicator */
+.progress-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ddd;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    width: 30px;
+    border-radius: 5px;
+}
+
+/* Message Box Styling */
+.message-box {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(252, 182, 159, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 40px 25px;
+    }
+    
+    h2 {
+        font-size: 20px;
+    }
+    
+    .emoji-icon {
+        font-size: 50px;
+    }
+    
+    button {
+        padding: 14px 28px;
+        font-size: 15px;
+    }
+}
+
+/* Sparkle effect */
+@keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0); }
+    50% { opacity: 1; transform: scale(1); }
+}
+
+.sparkle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: white;
+    border-radius: 50%;
+    animation: sparkle 1.5s infinite;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Floating Hearts Background -->
+<div class="hearts-bg" id="heartsContainer"></div>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+    <source src="bg-music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+    <!-- Progress Dots -->
+    <div class="progress-dots">
+        <div class="dot active" id="dot1"></div>
+        <div class="dot" id="dot2"></div>
+        <div class="dot" id="dot3"></div>
+        <div class="dot" id="dot4"></div>
+    </div>
+
+    <!-- Question 1 -->
+    <div id="q1" class="question-box active">
+        <div class="emoji-icon">💭</div>
+        <h2>How are you feeling right now?</h2>
+        <div class="button-group">
+            <button class="option-yes" onclick="startExperience()">Excited 😍</button>
+            <button class="option-no" onclick="startExperience()">Nervous 😅</button>
+        </div>
+    </div>
+
+    <!-- Question 2 -->
+    <div id="q2" class="question-box">
+        <div class="emoji-icon">😌</div>
+        <div class="message-box">
+            <h2>Aje nai aivo…<br>don't worry</h2>
+        </div>
+        <div class="button-group">
+            <button class="next-btn" onclick="showQ3()">Jinuu... ➜</button>
+        </div>
+    </div>
+
+    <!-- Question 3 -->
+    <div id="q3" class="question-box">
+        <div class="emoji-icon">🤍</div>
+        <h2>
+            Aje betho to vichairu…<br>
+            jo koi mane na pade ke tu jinuu ne nai lai jai sake To....<br>
+            hu su karu?
+        </h2>
+        <div class="button-group">
+            <button class="option-no" onclick="showNo()">kavvv... 😬</button>
+        </div>
+    </div>
+
+    <!-- YES Response -->
+    <div id="yes" class="question-box">
+        <div class="emoji-icon">😜</div>
+        <div class="message-box">
+            <h2>Chal chod…<br>nahi bataunga</h2>
+        </div>
+    </div>
+
+    <!-- NO Response -->
+    <div id="no" class="question-box">
+        <div class="emoji-icon">✨</div>
+        <div class="message-box">
+            <h2>mara sweet Papaji + Mendapara family ne kai deje</h2>
+        </div>
+        <div class="button-group">
+            <button class="next-btn" onclick="showVideo()">kee… 🎥</button>
+        </div>
+    </div>
+
+    <!-- Video Section -->
+    <div id="videoSection" class="question-box">
+        <div class="emoji-icon">❤️</div>
+        <h2>Just for you</h2>
+        <div class="video-container">
+            <video id="finalVideo" controls>
+                <source src="https://raw.githubusercontent.com/vanditmaradiya/Radhee/main/VN20260209_185723.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
+</div>
+
+<script>
+const music = document.getElementById("bgMusic");
+music.volume = 0;
+
+// Create floating hearts
+function createFloatingHearts() {
+    const container = document.getElementById('heartsContainer');
+    const hearts = ['❤️', '💕', '💖', '💗', '💓'];
+    
+    setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'heart-float';
+        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+        heart.style.animationDelay = Math.random() * 2 + 's';
+        container.appendChild(heart);
+        
+        setTimeout(() => heart.remove(), 8000);
+    }, 800);
+}
+
+createFloatingHearts();
+
+// Smooth music fade-in
+function playMusic() {
+    music.play().catch(e => console.log('Audio autoplay prevented'));
+    let vol = 0;
+    let fade = setInterval(() => {
+        if (vol < 0.4) {
+            vol += 0.02;
+            music.volume = vol;
+        } else {
+            clearInterval(fade);
+        }
+    }, 200);
+}
+
+function hideAll() {
+    document.querySelectorAll('.question-box').forEach(box => {
+        box.classList.remove('active');
+    });
+}
+
+function updateProgress(step) {
+    for (let i = 1; i <= 4; i++) {
+        const dot = document.getElementById(`dot${i}`);
+        if (i <= step) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    }
+}
+
+function startExperience() {
+    playMusic();
+    hideAll();
+    updateProgress(2);
+    document.getElementById("q2").classList.add('active');
+}
+
+function showQ3() {
+    hideAll();
+    updateProgress(3);
+    document.getElementById("q3").classList.add('active');
+}
+
+function showYes() {
+    hideAll();
+    updateProgress(4);
+    document.getElementById("yes").classList.add('active');
+}
+
+function showNo() {
+    hideAll();
+    updateProgress(4);
+    document.getElementById("no").classList.add('active');
+}
+
+function showVideo() {
+    hideAll();
+    updateProgress(4);
+    document.getElementById("videoSection").classList.add('active');
+    
+    // Stop background music
+    music.pause();
+    
+    // Play video
+    const video = document.getElementById("finalVideo");
+    video.play().catch(e => console.log('Video autoplay prevented'));
+}
+</script>
+
+</body>
+</html>
+
+
